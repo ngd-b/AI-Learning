@@ -1,226 +1,216 @@
-print("hello world")
+import json
+import os
+import sys
+from pathlib import Path
 
-name = "hboot"
-age = 18
-user_name = 'admin'
+print(json.dumps({"name": "hboot", "age": 18}))
+print(json.loads('{"name": "hboot", "age": 18}'))
 
-list = []
-list.append(18)
+print("------------------------------------------------------------------------------------------------------------------")
 
-dict = {"name": "hboot", "age": 18}
-dict["name"] = "hboot"
+# 创建文件夹
+os.mkdir("test")
+# 删除文件夹
+os.rmdir("test")
 
-def get_name(name,age=18):
-    return f"hello, {name}! You are {age} years old."
+# 获取环境变量
+print(os.environ.get("PATH"))
 
-print(get_name(dict["name"]))
+# 执行系统命令
+os.system("ls")
 
-get_name = lambda name, age=18: f"hello, {name}! You are {age} years old."
-print(get_name(dict["name"]))
+print("------------------------------------------------------------------------------------------------------------------")
 
+# 获取命令行参数
+print(sys.argv)
 
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        print(f"{self.name} is {self.age} years old.")
+# 获取Python解释器的版本信息
+print(sys.version)
 
-    def say_hello(self):
-        print(f"Hello, my name is {self.name}.")
-        print(f"I am {self.age} years old.")
+# 获取Python解释器的实现信息
+print(sys.implementation)
 
-class AdvancedPerson(Person):
-    def __init__(self, name, age):
-        super().__init__(name, age)
-        self.skills = []
+# 获取Python解释器的平台信息
+print(sys.platform)
 
-    def add_skill(self, skill):
-        self.skills.append(skill)
-        print(f"{self.name} has learned {skill}.")
+# 获取Python解释器的路径
+print(sys.executable)
 
-person = Person("Alice", 25)
-person.say_hello()
+print("------------------------------------------------------------------------------------------------------------------")
 
-advanced_person = AdvancedPerson("Bob", 30)
-advanced_person.add_skill("Python")
+# 获取当前目录
+print(Path.cwd())
 
-age = 18
+# 获取当前目录的父目录
+print(Path.cwd().parent)
 
-if age < 18:
-    print("You are a minor.")
-if age >= 18 and age < 65:
-    print("You are an adult.")
-else:
-    print("You are an senior.")
+# 判断路径是否存在
+print(Path('.').exists())
 
-list = ['apple', 'banana', 'orange']
+# 拼接路径
+print(Path('.') / 'test.py')
 
-for item in list:
-    print(item)
+print("------------------------------------------------------------------------------------------------------------------")
 
-for i in range(1, 6):
-    print(i)   
+import shutil
 
-i = 1
-while i <= 5:
-    print(i)
-    i += 1
+# 创建目录
+# os.mkdir('test_dir')
 
-with open('log.txt','w',encoding='utf-8') as f:
-    f.write('Hello World')
-    f.write('\n')
-    f.write('This is a test.')
-    f.write('\n')
+# # 创建文件
+# Path('test_dir/test.py').touch()
 
-with open('log.txt','r',encoding='utf-8') as f:
-    print(f.read())
-    
-with open('log.txt','r',encoding='utf-8') as f:
-    for line in f:
-        print(line)
-        print(line.strip()) # 去除换行符
+# # 复制文件
+# shutil.copytree('test_dir', 'test_dir_copy')
+
+# # 移动文件
+# shutil.move('test_dir', 'test_dir_move')
+
+# # 删除文件
+# shutil.rmtree('test_dir_move')
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logging.debug('This is a debug message')
+logging.info('This is an info message')
+logging.warning('This is a warning message')
+logging.error('This is an error message')
+logging.critical('This is a critical message')
+
+print("------------------------------------------------------------------------------------------------------------------")
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--name', help='your name')
+args = parser.parse_args()
+print(f'Hello, {args.name}')
+
+print("------------------------------------------------------------------------------------------------------------------")
+
+import re
+
+# 匹配字符串
+print(re.match('hello', 'hello world'))
+
+# 提取邮箱
+print(re.findall(r'[\w]+@[\w]+\.[\w]+', 'hello world, my email is <bobolity@163.com>'))
+
+# 提取手机号
+print(re.findall(r'1[3-9]\d{9}', 'hello world, my phone number is 13812345678'))
+
+# 替换字符串
+print(re.sub(r'[\d]+', '*', 'hello world, my phone number is 13812345678'))
+
+print("------------------------------------------------------------------------------------------------------------------")
+
+from datetime import datetime
+
+# 获取当前时间
+print(datetime.now())
+
+# 指定时间获取对象
+print(datetime(2020, 1, 1))
+
+# 指定时间戳获取对象
+print(datetime.fromtimestamp(1577836800))
+
+# 解析字符串为时间对象
+print(datetime.strptime('2020-01-01', '%Y-%m-%d'))
+
+# 格式化时间为字符串
+print(datetime.now().strftime('%Y-%m-%d'))
+
+print("------------------------------------------------------------------------------------------------------------------")
+
+from collections import Counter, defaultdict
+
+print(Counter([1, 1, 2, 3, 3, 3, 4, 4, 4, 4]))
+print(Counter('hello world'))
+
+print(defaultdict(lambda: 'N/A'))
+print(defaultdict(list))
+
+print("------------------------------------------------------------------------------------------------------------------")
+
+import random
+
+# 生成随机数
+print(random.random())
+
+# 生成指定范围内的随机数
+print(random.randint(0, 10))
+
+# 随机选择一个元素
+print(random.choice([1, 2, 3, 4, 5]))
+
+# 随机选择指定数量的元素
+print(random.sample([1, 2, 3, 4, 5], 3))
+
+# 打乱列表
+list = [1, 2, 3, 4, 5]
+random.shuffle(list)
+print(list)
+
+print("------------------------------------------------------------------------------------------------------------------")
 
 import math
 
+# 获取圆周率
+print(math.pi)
+
+# 获取正弦值
+print(math.sin(math.pi / 2))
+
+# 获取自然对数
+print(math.log(math.e))
+
+# 获取对数
+print(math.log(100, 10))
+
+# 获取指数
+print(math.exp(1))
+
+# 获取绝对值
+print(math.fabs(-100))
+
+# 获取平方根
 print(math.sqrt(16))
 
-import math as m
+print("------------------------------------------------------------------------------------------------------------------")
 
-print(m.sqrt(16))
+import glob
 
-from math import sqrt
+# 获取所有文件
+print(glob.glob('*.py'))
 
-print(sqrt(16))
+print("------------------------------------------------------------------------------------------------------------------")
 
-try:
-    # print(1/0)
-    # print(math.sqrt(-1))
-    print(int('a'))
+import zipfile
 
-except ZeroDivisionError:
-    print("Cannot divide by zero.")
-except ValueError:
-    print("Invalid value.")
-except:
-    print("An error occurred.")
-finally:
-    print("Finally block executed.")
+Path('test.py').touch()
+Path('test.txt').touch()
 
-list = []
-# if \ for 语句
-for i in range(1, 6):
-    if i % 2 == 0:
-        list.append(i)
+# 创建 ZIP 文件
+with zipfile.ZipFile('test.zip', 'w') as zip_file:
+    zip_file.write('test.py')
+    zip_file.write('test.txt')
 
-list = [x for x in range(1, 6) if x % 2 == 0]
-print(list)
+print(zipfile.is_zipfile('test.zip'))
 
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        print("Before function execution.")
-        result = func(*args, **kwargs)
-        print("After function execution.")
-        return result
+# 读取 ZIP 文件
+with zipfile.ZipFile('test.zip', 'r') as zip_file:
+    print(zip_file.namelist())
 
-    return wrapper
-@decorator
-def func():
-    print("Function execution.")
-    return "Function result."
+print("------------------------------------------------------------------------------------------------------------------")
 
-print(func())
+from itertools import product, permutations
 
-def get_name(*args, **kwargs):
-    print(f"hello, {args[0]}! You are {kwargs['age']} years old.")
-
-get_name("hboot", age=18)
-
-       
-class Person:
-
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def __str__(self):
-        return f"{self.name} is {self.age} years old."
-    def __len__(self):
-        return len(self.name)
-
-
-person = Person("Alice", 25)
-print(person)
-print(len(person))
-
-name: str = "hboot"
-
-def get_name(name: str) -> str:
-    return f"hello, {name}!"
-
-print(get_name([1,2,3]))
-
-def fibonacci():
-    a, b = 0, 1
-    while True:
-        yield a
-        a, b = b, a + b
-
-for i in fibonacci():
-    if i > 100:
-        break
+# 笛卡尔积
+for i in product([1, 2], [3, 4]):
     print(i)
 
-
-from contextlib import contextmanager
-
-@contextmanager
-def open_file(filename,mode):
-    f = open(filename,mode)
-    try:
-        yield f
-    finally:
-        f.close()
-
-with open_file('log.txt','r') as f:
-    print(f.read())  
-
-
-class OpenFile:
-    def __init__(self,filename,mode='r'):
-        self.filename = filename
-        self.mode = mode   
-    def __enter__(self):
-        self.f = open(self.filename,self.mode)
-        return self.f
-    def __exit__(self,exc_type,exc_val,exc_tb):
-        if self.f:
-            self.f.close()
-
-with OpenFile('log.txt') as f:
-    print(f.read())
-
-
-import asyncio
-import random as RANDOM
-async def hello(name: str,sem: asyncio.Semaphore):
-    
-    async with sem:
-        print(f'Hello {name}!')
-        await asyncio.sleep(RANDOM.randint(1,5))
-        print(f'Bye {name}!')
-
-async def batch_hello():
-    # 控制并发3
-    sem = asyncio.Semaphore(3)
-    
-    tasks = [hello(f'name{i}',sem) for i in range(10)]
-    # await asyncio.gather(*tasks)
-    
-    for task in asyncio.as_completed(tasks):
-        await task
-        
-    print('All done!')
-    
-asyncio.run(batch_hello())
-print("hello world")
-
+# 排列组合
+for i in permutations([1, 2, 3], 2):
+    print(i)

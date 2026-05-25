@@ -6,3 +6,4 @@ log.txt
 venv/
 .DS_Store
 .env
+.ipynb_checkpoints/
