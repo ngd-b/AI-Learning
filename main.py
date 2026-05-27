@@ -1,93 +1,90 @@
-"""
-需求：写一个 CLI 工具，读取 JSON 文件 → 调 OpenAI API 做文本翻译 → 写回文件。
-"""
+import numpy as np
 
-import json
-import os
-import sys
-import tempfile
-from openai import OpenAI
-from dotenv import load_dotenv
+# 创建一个数组
+arr = np.array([1, 2, 3, 4, 5])
+print(arr)
 
+# 创建一个二维数组
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+print(arr)
 
-def main():
-    # 先接收cli参数，参数不存在，直接中断执行
-    if len(sys.argv) < 2:
-        print(f"Usage: python {sys.argv[0]} <json_file>")
-        sys.exit(1)
+# 创建用0填充的数组
+arr = np.zeros((3, 3))
+print(arr)
 
-    # 获取到json 文件路径，读取文件
-    json_file = sys.argv[1]
+# 创建用1填充的数组
+arr = np.ones((3, 3))
+print(arr)
 
-    # 如果文件不存在，直接中断执行
-    if not os.path.exists(json_file):
-        print(f"File 【{json_file}】 does not exist.")
-        sys.exit(1)
+# 创建空数组，空数组内部会用随机数填充元素
+arr = np.empty((3, 3))
+print(arr)
 
-    # 初始化创建 OpenAI 对象,从.env 中获取 API KEY
-    load_dotenv()
+# 创建一个范围数组
+arr = np.arange(0, 10, 2)
+print(arr)
 
-    api_key = os.getenv("API_KEY")
-    base_url = os.getenv("BASE_URL")
-    if not api_key or not base_url:
-        print("Missing API_KEY or BASE_URL in .env file.")
-        sys.exit(1)
+# 创建一个线性分布数组
+arr = np.linspace(0, 10, 5)
+print(arr)
 
-    client = OpenAI(api_key=api_key, base_url=base_url)
+arr = np.array(
+    [[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]], [[13, 14, 15], [16, 17, 18]]]
+)
 
-    try:
-        # 读取文件
-        with open(json_file, "r") as f:
-            data = json.load(f)
-    except json.JSONDecodeError as e:
-        print(f"Invalid JSON: {e}")
-        sys.exit(1)
+# 获取数组的维度
+print(arr.ndim)
 
-    # 调用 AI 翻译内容
-    translated_text = translate(client, data)
+# 获取数组的形状
+print(arr.shape)
 
-    # 写入追加到文件
-    result = {"original": data, "translated": translated_text}
-    safe_write(json_file, result)
+# 获取数组有多少元素
+print(arr.size)
 
+arr = np.array([[1, 2, 3], [4, 5, 6]])
 
-# 安全写入文件,先写入临时文件，在替换原文件
-def safe_write(file_path, content):
-    dirname = os.path.dirname(file_path) or "."
+# 将数组重构为 1D
+print(arr.ravel())
 
-    with tempfile.NamedTemporaryFile(
-        mode="w", dir=dirname, delete=False, suffix=".tmp", encoding="utf-8"
-    ) as tmp:
-        json.dump(content, tmp, ensure_ascii=False, indent=4)
+# 将数组重构为 2D
+print(arr.reshape(3, 2))
 
-    os.replace(tmp.name, file_path)
+# 将数组重构为 3D
+print(arr.reshape(1, 2, 3))
 
+arr = np.array([1, 2, 3])
 
-# 定义调用AI方法，返回结果
-def translate(client, text):
-    """
-    调用AI方法
-    """
-    try:
-        response = client.chat.completions.create(
-            model="deepseek-v4-pro",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant. Return the text into English.",
-                },
-                {"role": "user", "content": text},
-            ],
-            stream=False,
-            reasoning_effort="high",
-            extra_body={"thinking": {"type": "enabled"}},
-        )
+# 扩展行
+print(arr[np.newaxis, :])
 
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"API call Error: {e}")
-        sys.exit(1)
+# 扩展列
+print(arr[:, np.newaxis])
 
+arr = np.array([[1, 2, 3], [4, 5, 6]])
 
-if __name__ == "__main__":
-    main()
+print(np.expand_dims(arr, axis=1))
+
+arr1 = np.array([[1, 2, 3], [4, 5, 6]])
+
+# 乘法
+print(arr1 * 2)
+
+# 减法
+print(arr1 - 2)
+
+# 求和
+print(arr1.sum())
+
+# 按行求和
+print(arr1.sum(axis=0))
+
+# 按列求和
+print(arr1.sum(axis=1))
+
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# 切片
+print(arr[1:])
+
+# 筛选
+print(arr[arr > 3])
