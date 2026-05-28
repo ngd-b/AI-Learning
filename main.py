@@ -1,90 +1,47 @@
-import numpy as np
+""""""
 
-# 创建一个数组
-arr = np.array([1, 2, 3, 4, 5])
-print(arr)
+task: 通过分析真实的泰坦尼克号的存活数据.预测测试数据里的人员的存活情况
 
-# 创建一个二维数组
-arr = np.array([[1, 2, 3], [4, 5, 6]])
-print(arr)
+本次采用人工分析数据的方式, 分析数据并给出预测结果
+字段释义
+survival-存活情况:0-死亡;1-存活
+sex-性别:male/female
+pclass-座位等级:1/2/3
+Age
+sibsp-兄弟姐妹
+parch-父母和孩子
+ticket-船票编号
+fare-船票价格
+cabin-船舱编号
+embarked-登船地点[C:Cherbourg/Q:Queenstown:S/Southampton]
+""
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# 创建用0填充的数组
-arr = np.zeros((3, 3))
-print(arr)
+# 设置全局字体
+plt.rcParams["font.sans-serif"] = ["Arial Unicode MS"]  # mac
+plt.rcParams["axes.unicode_minus"] = False
 
-# 创建用1填充的数组
-arr = np.ones((3, 3))
-print(arr)
+# 提高图形质量
+plt.rcParams["figure.dpi"] = 300
 
-# 创建空数组，空数组内部会用随机数填充元素
-arr = np.empty((3, 3))
-print(arr)
+# 使用美化样式，内部已有的主题
+plt.style.use("seaborn-v0_8-whitegrid")
 
-# 创建一个范围数组
-arr = np.arange(0, 10, 2)
-print(arr)
+# 读取真实数据
+df = pd.read_csv("train.csv")
+print(df.head())
 
-# 创建一个线性分布数组
-arr = np.linspace(0, 10, 5)
-print(arr)
+# 加载测试数据
+df_test = pd.read_csv("test.csv")
+print(df_test.head())
 
-arr = np.array(
-    [[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]], [[13, 14, 15], [16, 17, 18]]]
-)
+# 统计女性的存活数量、存活率
+female_survived = df.loc[df["Sex"] == "female"]["Survived"]
+female_survived_rate = sum(female_survived) / len(female_survived)
+print(f"女性存活率：{female_survived_rate:.2%}")
 
-# 获取数组的维度
-print(arr.ndim)
-
-# 获取数组的形状
-print(arr.shape)
-
-# 获取数组有多少元素
-print(arr.size)
-
-arr = np.array([[1, 2, 3], [4, 5, 6]])
-
-# 将数组重构为 1D
-print(arr.ravel())
-
-# 将数组重构为 2D
-print(arr.reshape(3, 2))
-
-# 将数组重构为 3D
-print(arr.reshape(1, 2, 3))
-
-arr = np.array([1, 2, 3])
-
-# 扩展行
-print(arr[np.newaxis, :])
-
-# 扩展列
-print(arr[:, np.newaxis])
-
-arr = np.array([[1, 2, 3], [4, 5, 6]])
-
-print(np.expand_dims(arr, axis=1))
-
-arr1 = np.array([[1, 2, 3], [4, 5, 6]])
-
-# 乘法
-print(arr1 * 2)
-
-# 减法
-print(arr1 - 2)
-
-# 求和
-print(arr1.sum())
-
-# 按行求和
-print(arr1.sum(axis=0))
-
-# 按列求和
-print(arr1.sum(axis=1))
-
-arr = np.array([[1, 2, 3], [4, 5, 6]])
-
-# 切片
-print(arr[1:])
-
-# 筛选
-print(arr[arr > 3])
+# 统计男性的存活数量、存活率
+male_survived = df.loc[df["Sex"] == "male"]["Survived"]
+male_survived_rate = sum(male_survived) / len(male_survived)
+print(f"男性存活率：{male_survived_rate:.2%}")
