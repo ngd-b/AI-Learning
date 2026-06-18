@@ -63,6 +63,8 @@ print(df["a"])
 
 # 取行维度数据
 print(df.loc["A"])
+# 或按位置取
+print(df.iloc[0])
 
 # 取多个列维度数据
 print(df[["a", "b"]])
@@ -72,6 +74,10 @@ print(df[1:3])
 
 # 取第一行第一列
 print(df.loc["A", "a"])
+# or
+print(df.iloc[0, 0])
+# or
+print(df.at["A", "a"])
 
 # 取多个行多个列数据
 print(df.loc[["A", "B"], ["a", "b"]])
@@ -97,6 +103,13 @@ print(pd.concat([df, df]))
 
 # 分组
 print(df.groupby("a").mean())
+
+# 统计某列值出现的次数
+print(df['a'].value_counts())
+
+# 修改列值
+df['a'] = df['a'].apply(lambda x: x * 2)
+print(df['a'])
 
 print("------------------------------------")
 

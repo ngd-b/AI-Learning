@@ -7,3 +7,5 @@ venv/
 .DS_Store
 .env
 .ipynb_checkpoints/
+data.csv
+data.xlsx
