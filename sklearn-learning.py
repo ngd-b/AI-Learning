@@ -8,6 +8,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
+from sklearn.cluster import KMeans
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -207,4 +208,30 @@ model.fit(X_train_scaled, y_train)
 importance = pd.Series(model.feature_importances_, index=X.columns)
 importance.sort_values(ascending=False).plot(kind="bar")
 plt.title("特征重要性")
+plt.show()
+
+# K-Means 聚类
+from sklearn.metrics import silhouette_score
+
+# 全量缩放
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 创建模型
+model = KMeans(n_clusters=3, random_state=42)
+model.fit(X_scaled)
+
+# 获取聚类结果
+labels = model.labels_        # 每个点属于哪个簇
+centers = model.cluster_centers_  # 中心点坐标
+
+print(f"\n===== K-Means 聚类结果 =====")
+print(f"Inertia（簇内距离和）：{model.inertia_:.2f}，越小表示簇越紧凑")
+
+# 可视化
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap="viridis")
+plt.scatter(centers[:, 0], centers[:, 1], c="red", marker="x", s=200)
+
+plt.title("K-Means 聚类结果")
+plt.savefig("kmeans.png", dpi=300, bbox_inches="tight", facecolor="white")
 plt.show()
