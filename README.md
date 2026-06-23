@@ -69,8 +69,7 @@
 
 **学习笔记：**
 - [torch-learning.py](torch-learning.py) — Tensor 操作 → 自动微分 → 优化器 → 全连接网络 → CNN/RNN/LSTM/Transformer
-- [hf-learning.py](hf-learning.py) — pipeline（情感分析/文本生成）、模型下载、数据集加载
-- [main.py](main.py) — Hugging Face pipeline 练习
+- [hf-learning.py](hf-learning.py) — Hugging Face：pipeline（情感分析/文本生成）、模型下载、数据集加载
 
 **实战项目：**
 - [mnist-cnn.py](mnist-cnn.py) — MNIST 手写数字识别：CNN 训练 5 epoch + 模型保存 + 真实图片推理
