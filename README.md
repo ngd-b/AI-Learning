@@ -56,18 +56,24 @@
 
 ---
 
-### 第四阶段：深度学习入门 🔲
+### 第四阶段：深度学习入门 ✅
 
 > 目标：理解神经网络原理，能用 PyTorch 搭建简单模型
 
-- [ ] **PyTorch** 基础：Tensor、Autograd、nn.Module、DataLoader
-- [ ] 前馈神经网络（全连接层、激活函数、反向传播）
-- [ ] CNN — 图像分类入门
-- [ ] RNN / LSTM — 序列数据处理
-- [ ] **Transformer 架构**：Self-Attention、位置编码、Encoder-Decoder
-- [ ] **Hugging Face 生态**：Hub、Datasets、Transformers、Spaces
+- [x] **PyTorch** 基础：Tensor、Autograd、nn.Module、DataLoader
+- [x] 前馈神经网络（全连接层、激活函数、反向传播）
+- [x] CNN — 图像分类入门
+- [x] RNN / LSTM — 序列数据处理
+- [x] **Transformer 架构**：Self-Attention、位置编码、Encoder-Decoder
+- [x] **Hugging Face 生态**：pipeline、Hub、Datasets、模型下载
 
-**计划实战：** MNIST 手写数字识别 / 文本情感分类
+**学习笔记：**
+- [torch-learning.py](torch-learning.py) — Tensor 操作 → 自动微分 → 优化器 → 全连接网络 → CNN/RNN/LSTM/Transformer
+- [hf-learning.py](hf-learning.py) — pipeline（情感分析/文本生成）、模型下载、数据集加载
+- [main.py](main.py) — Hugging Face pipeline 练习
+
+**实战项目：**
+- [mnist-cnn.py](mnist-cnn.py) — MNIST 手写数字识别：CNN 训练 5 epoch + 模型保存 + 真实图片推理
 
 ---
 
@@ -143,9 +149,9 @@
 ## 环境
 
 - Python 3.12+
-- 已用依赖：`numpy`、`pandas`、`matplotlib`、`openai`、`python-dotenv`
+- 已用依赖：`numpy`、`pandas`、`matplotlib`、`openai`、`python-dotenv`、`torch`、`torchvision`、`transformers`、`datasets`、`huggingface_hub`、`scikit-learn`
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install numpy pandas matplotlib openai python-dotenv
+pip install numpy pandas matplotlib openai python-dotenv torch torchvision transformers datasets huggingface_hub scikit-learn
 ```
