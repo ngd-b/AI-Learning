@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetch + ReadableStream</title>
+  </head>
+  <body>
+    <div id="output"></div>
+  </body>
+  <script type="module">
+    const response = await fetch("http://127.0.0.1:8000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // model: "gpt-4o",
+        messages: [{ role: "user", content: "解释一下机器学习" }],
+        // stream: true,  // 关键参数
+      }),
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      // SSE 用 \r\n\r\n 分隔每条消息
+      const parts = buffer.split("\r\n\r\n");
+      buffer = parts.pop();
+
+      for (const part of parts) {
+        const line = part.trim();
+        if (!line.startsWith("data: ")) continue;
+        const text = line.slice(6).trim();
+        if (text) {
+          document.getElementById("output").textContent += text;
+        }
+      }
+    }
+  </script>
+</html>

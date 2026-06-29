@@ -76,16 +76,24 @@
 
 ---
 
-### 第五阶段：大语言模型 & 应用开发 🔲
+### 第五阶段：大语言模型 & 应用开发 ✅
 
 > 目标：掌握 LLM 生态，能独立开发 AI 应用
 
 #### 5.1 LLM 基础
-- [ ] GPT 原理（预训练 → 微调 → RLHF）
-- [ ] Prompt Engineering（Few-shot / Chain-of-Thought / ReAct）
-- [ ] Structured Output / JSON Mode
-- [ ] Streaming 流式响应（SSE）
-- [ ] 模型选型与对比
+- [x] GPT 原理（预训练 → 微调 → RLHF）
+- [x] Prompt Engineering（Few-shot / Chain-of-Thought / ReAct）
+- [x] Structured Output / JSON Mode
+- [x] Streaming 流式响应（SSE）
+- [x] 模型选型与对比
+
+**学习笔记：**
+- [prompt-learning.py](prompt-learning.py) — 提示词工程：Template 模板、Few-shot、结构化 JSON 输出、Token 计数
+- [stream-learning.py](stream-learning.py) — 流式响应：SSE 服务端 + 前端 ReadableStream 解析
+
+**实战项目：**
+- [main.py](main.py) — FastAPI 流式服务 + httpx 裸调 DeepSeek API + SSE 推送
+- [stream.html](stream.html) — 前端 SSE 流式接收，逐字渲染
 
 #### 5.2 RAG（检索增强生成）
 - [ ] LangChain / LlamaIndex 框架
